@@ -1,12 +1,12 @@
 var cursor = true;
-var speed = 220;
+var speed = 420;
 
 setInterval(() => {
    if(cursor) {
      document.getElementById('cursor').style.opacity = 0;
-     cursor = false;
+     cursor = !cursor;
    }else {
      document.getElementById('cursor').style.opacity = 1;
-     cursor = true;
+     cursor = !cursor;
    }
 }, speed);

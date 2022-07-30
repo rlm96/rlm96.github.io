@@ -1,0 +1,35 @@
+code {
+    font-family: Consolas;
+    display: inline;
+}
+
+.comment {
+    color: #008000;
+}
+
+.cursor {
+    font-size: 20px;
+    -webkit-animation: cursor-blink 1.5s steps(2) infinite;
+}
+
+@keyframes cursor-blink {
+    0% {
+      opacity: 0;
+    }
+}
+
+.code-daily {
+    color: black;
+}
+
+.code-nightly {
+    color: white;
+}
+
+.background-daily {
+    background: white;
+}
+
+.background-nightly {
+    background: #1e1e1e;
+}

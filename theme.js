@@ -22,7 +22,7 @@ function setNightTheme() {
 async function isDayTimeAsync() {
   var currentDate = new Date();
   try {
-    const position = await getPosition();
+    const position = await getPositionAsync();
     var times = SunCalc.getTimes(currentDate, position.coords.latitude, position.coords.longitude);
     return currentDate > times.sunrise && currentDate < times.sunset;
   } catch {
@@ -30,7 +30,7 @@ async function isDayTimeAsync() {
   }
 }
 
-function getPosition() {
+async function getPositionAsync() {
   return new Promise((res, rej) => {
       navigator.geolocation.getCurrentPosition(res, rej);
   });

@@ -1,7 +1,7 @@
 window.onload = renderTheme;
 
 function renderTheme() {
-  isDayTime().then(isDayTimeResult => {
+  isDayTimeAsync().then(isDayTimeResult => {
     if (isDayTimeResult)
       setDayTheme();
     else
@@ -19,14 +19,15 @@ function setNightTheme() {
   document.querySelector(".cursor").classList.add("code-nightly");
 }
 
-function isDayTime() {
+async function isDayTimeAsync() {
   var currentDate = new Date();
-  return getPosition().then(position => {
+  try {
+    const position = await getPosition();
     var times = SunCalc.getTimes(currentDate, position.coords.latitude, position.coords.longitude);
     return currentDate > times.sunrise && currentDate < times.sunset;
-  }).catch(() => {
+  } catch {
     return 7 <= currentDate.getHours() && currentDate.getHours() < 20;
-  });
+  }
 }
 
 function getPosition() {

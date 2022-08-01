@@ -1,11 +1,12 @@
 window.onload = renderTheme;
 
 function renderTheme() {
-  var currentHour = new Date().getHours();
-  if (isDayTime(currentHour))
-    setDayTheme();
-  else
-    setNightTheme();
+  isDayTime().then(isDayTimeResult => {
+    if (isDayTimeResult)
+      setDayTheme();
+    else
+      setNightTheme();
+  });
 }
 
 function setDayTheme() {
@@ -18,6 +19,18 @@ function setNightTheme() {
   document.querySelector(".cursor").classList.add("code-nightly");
 }
 
-function isDayTime(currentHour) {
-  return 7 <= currentHour && currentHour < 20;
+function isDayTime() {
+  var currentDate = new Date();
+  return getPosition().then(position => {
+    var times = SunCalc.getTimes(currentDate, position.coords.latitude, position.coords.longitude);
+    return currentDate > times.sunrise && currentDate < times.sunset;
+  }).catch(() => {
+    return 7 <= currentDate.getHours() && currentDate.getHours() < 20;
+  });
+}
+
+function getPosition() {
+  return new Promise((res, rej) => {
+      navigator.geolocation.getCurrentPosition(res, rej);
+  });
 }
